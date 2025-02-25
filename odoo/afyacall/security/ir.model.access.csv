@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_afyacall_afyacall,afyacall.afyacall,model_afyacall_afyacall,base.group_user,1,1,1,1
+access_afyacall_groups,afyacall.groups,model_afyacall_groups,base.group_user,1,1,1,1
+access_afyacall_contacts,afyacall.contacts,model_afyacall_contacts,base.group_user,1,1,1,1
+access_afyacall_campaigns,afyacall.campaigns,model_afyacall_campaigns,base.group_user,1,1,1,1

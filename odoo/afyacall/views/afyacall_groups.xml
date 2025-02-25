@@ -1,0 +1,83 @@
+<odoo>
+  <data>
+    <!-- Tree (List) View for Groups -->
+    <record model="ir.ui.view" id="afyacall_group_tree">
+      <field name="name">Afyacall Groups</field>
+      <field name="model">afyacall.groups</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" string="Group Name"/>
+          <field name="description"/>
+          <field name="expired_at"/>
+          <field name="create_uid"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Tree (List) View for Contacts -->
+    <record model="ir.ui.view" id="afyacall_contact_tree">
+      <field name="name">Afyacall Contacts</field>
+      <field name="model">afyacall.contacts</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="contacts" string="Contact"/>
+          <field name="group_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="afyacall_group_form">
+    <field name="name">Afyacall Group</field>
+    <field name="model">afyacall.groups</field>
+    <field name="arch" type="xml">
+        <form string="Groups">
+            <sheet>
+                <!-- Stat Button for Contact Count -->
+                <div class="oe_button_box" name="button_box">
+                    <button name="%(afyacall.contacts_action)d"
+                            type="action"
+                            string="Contacts"
+                            class="oe_stat_button"
+                            icon="fa-users">
+                        <field name="contact_count" widget="statinfo" string="Contacts"/>
+                    </button>
+                </div>
+
+                <!-- Basic Group Details -->
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="status"/>
+                    </group>
+                    <group>
+                        <field name="retention"/>
+                        <field name="expired_at"/>
+                    </group>
+                </group>
+
+                <!-- Notebook Tabs -->
+                <notebook>
+                    <page string="Description">
+                        <field name="description"/>
+                    </page>
+
+                    <page string="Contacts">
+                        <field name="group_contact_ids">
+                            <tree editable="bottom">
+                                <field name="contacts"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+                <!-- Chatter Section for Log Notes & Activities -->
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+  </data>
+</odoo>

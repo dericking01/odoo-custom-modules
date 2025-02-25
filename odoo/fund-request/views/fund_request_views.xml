@@ -1,0 +1,71 @@
+<odoo>
+    <data>
+    <record id="view_fund_request_form" model="ir.ui.view">
+    <field name="name">fund.request.form</field>
+    <field name="model">fund.request</field>
+    <field name="arch" type="xml">
+        <form string="Fund Request">
+            <header>
+                <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected"/>
+                <button name="action_submit" type="object" string="Submit" states="draft" class="oe_highlight"/>
+                <button name="action_approve" type="object" string="Approve" states="submitted" class="btn-primary" groups="hr.group_hr_manager"/>
+                <button name="action_reject" type="object" string="Reject" states="submitted" class="btn-danger" groups="hr.group_hr_manager"/>
+            </header>
+
+            <sheet>
+                <!-- Bold and Large Text for "New" or Sequence Number -->
+                <div style="font-size: 24px; font-weight: bold; text-align: center; margin-bottom: 15px;">
+                    <field name="name" attrs="{'readonly': [('is_editable', '=', False)]}"/>
+                </div>
+
+                <group>
+                    <group>
+                        <field name="is_editable" invisible="1"/>
+                        <field name="employee_id" attrs="{'readonly': [('is_editable', '=', False)]}"/>
+                        <field name="department_id" attrs="{'readonly': [('is_editable', '=', False)]}"/>
+                        <field name="amount" attrs="{'readonly': [('is_editable', '=', False)]}"/>
+                        <field name="manager_id" attrs="{'readonly': [('is_editable', '=', False)]}"/>
+                    </group>
+                </group>
+
+                <notebook>
+                    <page string="Purpose Details">
+                        <group>
+                            <field name="purpose" placeholder="Write Purpose here..." attrs="{'readonly': [('is_editable', '=', False)]}"/>
+                        </group>
+                    </page>
+                    <page string="Manager's comments" groups="hr.group_hr_manager">
+                        <group>
+                            <field name="approval_comments" attrs="{'readonly': [('is_editable', '=', False)]}"/>
+                        </group>
+                    </page>
+                </notebook>
+            </sheet>
+
+            <!-- Chatter (Log) Section -->
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+<record id="view_fund_request_reject_wizard_form" model="ir.ui.view">
+    <field name="name">fund.request.reject.wizard.form</field>
+    <field name="model">fund.request.reject.wizard</field>
+    <field name="arch" type="xml">
+        <form string="Reject Fund Request">
+            <group>
+                <field name="reason" placeholder="Enter rejection reason here..."/>
+            </group>
+            <footer>
+                <button string="Reject" type="object" name="action_reject" class="btn-primary"/>
+                <button string="Cancel" class="btn-secondary" special="cancel"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+    </data>
+</odoo>

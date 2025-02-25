@@ -1,0 +1,16 @@
+<odoo>
+    <!-- Define the action for the wizard -->
+    <record id="action_sales_reporting_wizard" model="ir.actions.act_window">
+        <field name="name">Sales Reporting</field>
+        <field name="res_model">sales.reporting.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Inherit the Sales Reporting Menu -->
+    <record id="view_sales_reporting_menu" model="ir.ui.menu">
+        <field name="name">Sales Reporting</field>
+        <field name="parent_id" ref="sale.menu_sale_report"/>
+        <field name="action" ref="action_sales_reporting_wizard"/>
+    </record>
+</odoo>

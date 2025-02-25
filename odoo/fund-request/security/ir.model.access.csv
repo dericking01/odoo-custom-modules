@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fund_request_employee,fund.request.employee,model_fund_request,base.group_user,1,1,1,0
+access_fund_request_manager,fund.request.manager,model_fund_request,hr.group_hr_manager,1,1,1,1
+access_fund_request_reject_wizard,fund.request.reject.wizard,model_fund_request_reject_wizard,base.group_user,1,1,1,0

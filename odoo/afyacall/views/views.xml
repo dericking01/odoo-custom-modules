@@ -1,0 +1,114 @@
+<odoo>
+  <data>
+    <!-- explicit tree (list) view definition -->
+    <record model="ir.ui.view" id="afyacall.list">
+      <field name="name">afyacall list</field>
+      <field name="model">afyacall.afyacall</field>
+      <field name="arch" type="xml">
+        <tree> <!-- Corrected from <list> -->
+          <field name="name"/>
+          <field name="product_id" string="Product ID"/>
+          <field name="description"/>
+          <field name="price"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="afyacall_list_form">
+    <field name="name">Afyacall Add Product</field>
+    <field name="model">afyacall.afyacall</field>
+    <field name="arch" type="xml">
+        <form string="Afyacall Product">
+            <sheet>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="product_id" string="Product ID"/>
+                        <field name="price"/>
+                        <field name="afyacall_customer_id" string="Overseed By" />
+                    </group>
+                </group>
+
+                <notebook>
+                    <page string="Description">
+                        <group>
+                            <field name="description" placeholder="Enter product description here..."/>
+                        </group>
+                    </page>
+                </notebook>
+
+                <!-- Add Chatter -->
+
+            </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+        </form>
+    </field>
+</record>
+
+
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="afyacall.action_window">
+      <field name="name">Afyacall Products</field>
+      <field name="res_model">afyacall.afyacall</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="afyacall.action_group">
+      <field name="name">afyacall Groups</field>
+      <field name="res_model">afyacall.groups</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="afyacall.contacts_action">
+      <field name="name">Contacts</field>
+      <field name="res_model">afyacall.contacts</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('group_id', '=', active_id)]</field>
+      <field name="context">{'default_group_id': active_id}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="afyacall.action_campaign">
+      <field name="name">afyacall Campaigns</field>
+      <field name="res_model">afyacall.campaigns</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- server action -->
+    <record model="ir.actions.server" id="afyacall.action_server">
+      <field name="name">afyacall server</field>
+      <field name="model_id" ref="model_afyacall_groups"/>
+      <field name="state">code</field>
+      <field name="code">
+
+action = {
+    "type": "ir.actions.act_window",
+    "view_mode": "tree,form",  # Correctly formatted with proper closure
+    "res_model": model._name,
+}
+      </field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="afyacall" id="afyacall.menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Customer" id="afyacall.customer" parent="afyacall.menu_root"/>
+    <menuitem name="Broadcasts" id="afyacall.broadcast" parent="afyacall.menu_root"/>
+
+    <!-- actions -->
+    <menuitem name="Enticements" id="afyacall.enticement" parent="afyacall.customer"
+              action="afyacall.action_window"/>
+    <menuitem name="Subscriptions" id="afyacall.subscriptions" parent="afyacall.customer"
+              action="afyacall.action_window"/>
+    <menuitem name="Groups" id="afyacall.groups" parent="afyacall.broadcast"
+              action="afyacall.action_group"/>
+    <menuitem name="SMS-campaigns" id="afyacall.sms-campaigns" parent="afyacall.broadcast"
+              action="afyacall.action_campaign"/>
+    <menuitem name="OBD-campaigns" id="afyacall.obd-campaigns" parent="afyacall.broadcast"
+              action="afyacall.action_campaign"/>
+  </data>
+</odoo>
