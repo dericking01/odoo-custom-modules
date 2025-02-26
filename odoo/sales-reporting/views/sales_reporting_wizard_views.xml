@@ -7,7 +7,7 @@
             <form string="Sales Reporting">
                 <sheet>
                     <group>
-                        <field name="customer_id" string="Customer"/>
+                        <field name="customer_ids" widget="many2many_tags" string="Customers"/>
                         <field name="date_from" string="Date From"/>
                         <field name="date_to" string="Date To"/>
                     </group>

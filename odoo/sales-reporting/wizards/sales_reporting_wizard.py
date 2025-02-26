@@ -7,15 +7,19 @@ class SalesReportingWizard(models.TransientModel):
     _name = 'sales.reporting.wizard'
     _description = 'Sales Reporting Wizard'
 
-    customer_id = fields.Many2one('res.partner', string='Customer')
+    customer_ids = fields.Many2many(
+        'res.partner',  # Model name
+        string='Customers',  # Field label
+        domain="[('customer_rank', '>', 0)]"  # Optional: Filter only customers
+    )
     date_from = fields.Date(string='Date From')
     date_to = fields.Date(string='Date To')
 
     def action_export_excel(self):
         # Filter sales orders based on the wizard inputs
         domain = []
-        if self.customer_id:
-            domain.append(('partner_id', '=', self.customer_id.id))
+        if self.customer_ids:
+            domain.append(('partner_id', 'in', self.customer_ids.ids))
         if self.date_from:
             domain.append(('date_order', '>=', self.date_from))
         if self.date_to:
