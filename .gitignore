@@ -1,0 +1,9 @@
+__pycache__/
+**/static/lib/
+i18n
+*.png
+*.rst
+*.gif
+*.jpg
+*.jpeg
+*.svg

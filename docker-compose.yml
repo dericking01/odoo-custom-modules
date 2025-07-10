@@ -1,0 +1,24 @@
+services:
+  odoo:
+    image: odoo:16.0
+    env_file: .env
+    depends_on:
+      - postgres
+    ports:
+      - "8090:8069"
+    volumes:
+      - data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+
+  postgres:
+    image: postgres:13
+    env_file: .env
+    ports:
+      - "5430:5432"  # 👈 Expose PostgreSQL port to host
+    volumes:
+      - db:/var/lib/postgresql/data/pgdata
+
+volumes:
+  data:
+  db:
