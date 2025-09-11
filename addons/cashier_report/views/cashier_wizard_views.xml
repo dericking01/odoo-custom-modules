@@ -1,0 +1,44 @@
+<odoo>
+        <!-- Wizard Action -->
+    <record id="action_cashier_report_wizard" model="ir.actions.act_window">
+        <field name="name">Periodic Cashier Report</field>
+        <field name="res_model">cashier.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    
+    <!-- Submenu for Wizard -->
+    <menuitem id="menu_cashier_periodic_wizard" 
+              name="Periodic Report" 
+              parent="menu_cashier_root" 
+              action="action_cashier_report_wizard" 
+              sequence="10"/>
+
+
+    <record id="view_cashier_report_wizard_form" model="ir.ui.view">
+        <field name="name">cashier.report.wizard.form</field>
+        <field name="model">cashier.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Periodic Cashier Report">
+                <group>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="shop_id"/>
+                    <field name="sale_type"/>
+                    <field name="employee_id"/> <!-- Employee Filter -->
+                </group>
+                <footer>
+                    <button string="Compute" type="object" name="compute_totals" class="btn-primary"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+
+                <group string="Summary" attrs="{'invisible':[('total_sales','=',0)]}">
+                    <field name="total_sales" readonly="1"/>
+                    <field name="total_expenditure" readonly="1"/>
+                    <field name="balance" readonly="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

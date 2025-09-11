@@ -1,0 +1,39 @@
+<odoo>
+    <!-- Pivot View for Cashier Report -->
+    <record id="view_cashier_report_pivot" model="ir.ui.view">
+        <field name="name">cashier.report.pivot</field>
+        <field name="model">cashier.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Cashier Report Pivot">
+                <field name="shop_id" type="row"/>
+                <field name="sale_type" type="row"/>
+                <field name="date" type="col"/>
+                <field name="total_sales" type="measure"/>
+                <field name="total_expenditure" type="measure"/>
+                <field name="balance" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action to open pivot view -->
+    <record id="action_cashier_report_pivot" model="ir.actions.act_window">
+        <field name="name">Cashier Report Pivot</field>
+        <field name="res_model">cashier.report</field>
+        <field name="view_mode">pivot,tree,form</field>
+        <field name="view_id" ref="view_cashier_report_pivot"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Use this pivot table to analyze your Cashier Reports.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu item under your module menu -->
+    <menuitem id="menu_cashier_report_pivot"
+              name="Cashier Pivot"
+              parent="menu_cashier_root"
+              action="action_cashier_report_pivot"
+              sequence="6"/>
+
+    
+</odoo>
